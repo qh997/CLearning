@@ -72,5 +72,39 @@ int main (void) {
     strncpy(foo, hello, 12);
     printf("foo = %s\n", foo);
 
+    printf("---- Pascal's triangle ----\n");
+    #define PASCAL 8
+    int pascal[PASCAL][PASCAL] = {0};
+    for (int i = 0; i < PASCAL; i++)
+    {
+        pascal[i][0] = 1;
+        for (int j = 1; j < i; j++)
+        {
+            pascal[i][j] = pascal[i - 1][j - 1] + pascal[i - 1][j];
+        }
+    }
+
+    for (int i = 0; i < PASCAL; i++)
+    {
+        for (int j = 0; j < PASCAL; j++)
+        {
+            if (pascal[i][j] != 0)
+                printf("%3d ", pascal[i][j]);
+            else
+                break;
+        }
+        printf("\n");
+    }
+
+    printf("------- String copy -------\n");
+    char ori_str[13] = "1234567890123";
+    char tar_str[50] = "XXXXXXXXXXXXXXXXXXXX";
+    for (int i = 0; ori_str[i] != '\0'; i++)
+    {
+        tar_str[i] = ori_str[i];
+    }
+
+    printf("%s\n", tar_str);
+
     return 0;
 }
