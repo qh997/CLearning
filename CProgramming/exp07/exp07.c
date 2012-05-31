@@ -9,8 +9,11 @@ void hanoi (int, char, char, char);
 float average (float*);
 void static_val (int);
 void get_extern ();
+float legendre (int rank, float x);
+int hex_to_dec (char hex[]);
 
-int main () {
+int main ()
+{
     printf("---------- EXP07 ----------\n");
 
     printf("---------- max() ----------\n");
@@ -37,6 +40,11 @@ int main () {
     ExA += 977;
     get_extern();
 
+    printf("--------- Legendre --------\n");
+    printf("legendre = %.2f\n", legendre(3, 4));
+
+    printf("-------- Hex to Dec -------\n");
+    printf("hex_to_dec = %d\n", hex_to_dec("A0"));
 
     return 0;
 }
