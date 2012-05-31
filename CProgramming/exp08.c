@@ -11,6 +11,7 @@ int min (int a, int b);
 int sum (int a, int b);
 int ave (int a, int b);
 void play (int a, int b, int (*func)(int, int));
+int getout_3 (int total);
 
 int main (int argc, char **argv)
 {
@@ -97,8 +98,28 @@ int main (int argc, char **argv)
     printf("%c\n", *(*(names + 3) + 1));
 
     printf("------- malloc free -------\n");
-    int * np = (int *)calloc(8, sizeof(int));
-    
+    int score_c[] = {93, 79, 85, 67, 78};
+    int * np = malloc(sizeof(score_c));
+    for (int i = 0; i < sizeof(score_c) / sizeof(*score_c); i++)
+        *(np + i) = score_c[i];
+    for (int i = 0; i < sizeof(score_c) / sizeof(*score_c); i++)
+    {
+        if (*(np + i) < 85) printf("%d : %d\n", i, *(np + i)); 
+    }
+
+    printf("---------- void * ---------\n");
+    void * void_p = malloc(10);
+    printf("%ld\n", sizeof(*((int *)void_p)));
+    printf("%ld\n", sizeof(*((float *)void_p)));
+    printf("%ld\n", sizeof(*((short *)void_p)));
+    printf("%ld\n", sizeof(*((long *)void_p)));
+    printf("%ld\n", sizeof(*((long long *)void_p)));
+    printf("%ld\n", sizeof(*((double *)void_p)));
+    printf("%ld\n", sizeof(*((char *)void_p)));
+    printf("%ld\n", sizeof(*((void **)void_p)));
+
+    printf("--------- getout 3 --------\n");
+    printf("%d\n", getout_3(40) + 1);
 
     return 0;
 }
@@ -160,4 +181,38 @@ int ave (int a, int b){return((a + b) / 2);}
 void play (int a, int b, int (*func)(int, int))
 {
     printf("This is : %d\n", (*func)(a, b));
+}
+
+int getout_3 (int total)
+{
+    int *circle = malloc(total * sizeof(int));
+    int counter = 0, outer = 0, result = 0;
+    for (int i = 0; i < total; i++) circle[i] = 0;
+    while (outer < total)
+    {
+        for (int i = 0; i < total; i++)
+        {
+            if (*(circle + i))
+            {
+                printf("-- ");
+                continue;
+            }
+            if (++counter == 3)
+            {
+                *(circle + i) = 1;
+                result = i;
+                outer++;
+                counter = 0;
+                printf("!- ");
+            }
+            else
+            {
+                printf("%2d ", i);
+            }
+        }
+
+        printf("\n");
+    }
+
+    return result;
 }
