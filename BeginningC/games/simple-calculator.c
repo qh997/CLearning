@@ -26,7 +26,7 @@ int main (void)
 
         char *number = NULL;
         int number_dig = 1;
-        char op = '+';
+        char op = '\0';
         for (int index = 0; index <= input_length; index++)
         {
             if (index == 0)
@@ -47,11 +47,14 @@ int main (void)
             }
             else
             {
-                float current = atof(number);
+                float current = 0.0F;
+                if (number != NULL)
+                    current = atof(number);
 
                 switch (op)
                 {
                     case '+':
+                    case '\0':
                         result += current;
                         break;
 
@@ -82,7 +85,6 @@ int main (void)
                 number_dig = 1;
             }
         }
-
         printf("= %.2f\n", result);
     }
 
