@@ -15,10 +15,10 @@ int main (void)
         printf("number's   address : %p\n", &number);
         printf("number's   value   : %d\n", number);
         printf("pointer's  address : %p\n", &pointer);
-        printf("pointer's  size    : %d\n", sizeof(pointer));
+        printf("pointer's  size    : %ld\n", sizeof(pointer));
         printf("pointer's  value   : %p\n", pointer);
         printf("pointer to value   : %d\n", *pointer);
-        printf("pointer to size    : %d\n", sizeof(*pointer));
+        printf("pointer to size    : %d\n", (int)sizeof(*pointer));
     }
 
     print_title("const pointer");
@@ -66,10 +66,10 @@ int main (void)
         *(pchar + 9) = '\0';
         printf("pchar = %s\n", pchar);
         char *pchar1 = pchar + 3;
-        printf("%X\n", pchar);
-        printf("%X\n", pchar1);
+        printf("%p\n", pchar);
+        printf("%p\n", pchar1);
         free(pchar);
-        printf("%X\n", pchar);
+        printf("%p\n", pchar);
     }
 
     print_title("realloc");
@@ -77,19 +77,19 @@ int main (void)
         char *pchar = malloc(10 * sizeof(char));
         for (int i = 0; i < 9; *(pchar + i) = (char)('a' + i), i++);
         *(pchar + 9) = '\0';
-        printf("%X\n", pchar);
+        printf("%p\n", pchar);
         printf("pchar = %s\n", pchar);
 
         pchar = realloc(pchar, 15 * sizeof(char));
         for (int i = 0; i < 14; *(pchar + i) = (char)('a' + i), i++);
         *(pchar + 14) = '\0';
-        printf("%X\n", pchar);
+        printf("%p\n", pchar);
         printf("pchar = %s\n", pchar);
 
         pchar = realloc(pchar, 25 * sizeof(char));
         for (int i = 0; i < 24; *(pchar + i) = (char)('a' + i), i++);
         *(pchar + 24) = '\0';
-        printf("%X\n", pchar);
+        printf("%p\n", pchar);
         printf("pchar = %s\n", pchar);
 
         free(pchar);
