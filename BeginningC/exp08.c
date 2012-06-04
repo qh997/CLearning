@@ -8,6 +8,8 @@
 
 void print_title (char* title);
 void change_number (const int* pnum);
+long* IncomePlus (long* pPay);
+char* int_to_string (int number);
 
 int main ()
 {
@@ -43,14 +45,17 @@ int main ()
     {
         char *strings[5] = {NULL};
         printf("%p\n", strings[3]);
-        strings[3] = malloc(5 * sizeof(char));
+        *(strings + 3) = malloc(5 * sizeof(char));
         printf("%p\n", strings[3]);
         *(*(strings + 3) + 2) = 'c';
         printf("*(*(strings + 3) + 2) = %c\n", *(*(strings + 3) + 2));
+
         char *pstr = strings[3];
         printf("*(pstr + 2) = %c\n", *(pstr + 2));
+        
         char **ppstr = &strings[3];
         printf("*(*ppstr + 2) = %c\n", *(*ppstr + 2));
+        
         long long *ppstr2 = &strings[3];
         printf("%p\n", (char *)*ppstr2);
         printf("%c\n", *((char *)*ppstr2 + 2));
@@ -58,6 +63,22 @@ int main ()
         **strings = 'x';
         ppstr2 = &strings[0];
         printf("%c\n", *((char *)*ppstr2));
+    }
+
+    print_title("pointer in function");
+    {
+        long your_pay = 30000L;
+        long* pold_pay = &your_pay;
+        long* pnew_pay = NULL;
+        pnew_pay = IncomePlus(pold_pay);
+        printf("\nOld pay = $%ld", *pold_pay);
+        printf("\nNew pay = $%ld\n", *pnew_pay);
+    }
+
+    print_title("Practice 8.2");
+    {
+        char* p_numstr = int_to_string(12580);
+        printf("%s\n", p_numstr);
     }
 }
 
@@ -94,4 +115,27 @@ void print_title (char* title)
 void change_number (const int* pnum)
 {
 //    *pnum *= 2; //error: assignment of read-only location ‘*pnum’
+}
+
+long* IncomePlus (long* pPay)
+{
+    long pay = 0;
+    pay = *pPay + 10000L;
+    return &pay;
+}
+
+char* int_to_string (int number)
+{
+    int count = 1, tmp = number;
+    while (tmp /= 10) count++;
+    char* p_string = malloc((count + 1) * sizeof(char));
+    
+    *(p_string + count) = '\0';
+    while (--count + 1)
+    {
+        *(p_string + count) = number % 10 + 'A';
+        number /= 10;
+    }
+
+    return p_string;
 }
