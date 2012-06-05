@@ -54,9 +54,10 @@ int main(void)
                         char y = 0;
 
                         printf("Please enter your move (row column): ");
+                        fflush(stdout);
+                        scanf(" %d%c", &x, &y);
                         y = tolower(y) - 'a';
                         x--;
-                        printf("%d %d\n", x, y);
 
                         if (x >= 0 && y >= 0 && x < SIZE && y < SIZE && moves[x][y])
                         {
@@ -75,6 +76,7 @@ int main(void)
                 else if (++invalid_moves < 2)
                 {
                     printf("\nYou have to pass, press Enter\n");
+                    fflush(stdout);
                     scanf("%c", &again);
                 }
                 else
@@ -116,6 +118,7 @@ int main(void)
         printf(" Computer %d\n User %d\n\n", comp_score, user_score);
 
         printf("Do you want to play again (y/n): ");
+        fflush(stdout);
         scanf(" %c", &again);
     } while ('y' == tolower(again));
 
