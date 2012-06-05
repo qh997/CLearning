@@ -7,7 +7,8 @@
 
 void print_title(char* title);
 struct Node *create_node(long value);
-struct Node *add_node(long value, struct Node *pNode);
+struct Node *add_node(struct Node *pNode, long value);
+void list_nodes(struct Node *pNode);
 
 struct Node
 {
@@ -32,6 +33,20 @@ int main()
         } indicators;
         indicators.flag4 = 5;
         printf("%X\n", indicators.flag4);
+    }
+
+    print_title("Binary tree");
+    {
+        struct Node *pRoot = NULL;
+
+        pRoot = create_node(127L);
+        add_node(pRoot, 56L);
+        add_node(pRoot, 99L);
+        add_node(pRoot, 335L);
+        add_node(pRoot, 12L);
+        add_node(pRoot, 79L);
+        add_node(pRoot, 997L);
+        list_nodes(pRoot);
     }
 
     return 0;
@@ -76,7 +91,7 @@ struct Node *create_node(long value)
     return pNode;
 }
 
-struct Node *add_node(long value, struct Node *pNode)
+struct Node *add_node(struct Node *pNode, long value)
 {
     if (pNode == NULL)
     {
@@ -98,7 +113,7 @@ struct Node *add_node(long value, struct Node *pNode)
             }
             else
             {
-                return add_node(value, pNode->pLeft);
+                return add_node(pNode->pLeft, value);
             }
         }
         else
@@ -110,8 +125,25 @@ struct Node *add_node(long value, struct Node *pNode)
             }
             else
             {
-                return add_node(value, pNode->pRight);
+                return add_node(pNode->pRight, value);
             }
         }
+    }
+}
+
+void list_nodes(struct Node *pNode)
+{
+    if (NULL != pNode->pLeft)
+    {
+        list_nodes(pNode->pLeft);
+    }
+
+    for (int i = 0; i < pNode->count; i++)
+    {
+        printf("%10ld\n", pNode->item);
+    }
+    if (NULL != pNode->pRight)
+    {
+        list_nodes(pNode->pRight);
     }
 }
