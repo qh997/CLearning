@@ -14,6 +14,7 @@ typedef struct barTAG
 typedef unsigned int uint;
 
 bar *add_bar(bar *const pfristbar, double value);
+void del_bar(bar *pfristbar);
 int bar_chart(bar *const pfristbar, uint page_width, uint page_height, char const *title);
 
 int main(void)
@@ -29,6 +30,17 @@ int main(void)
     add_bar(pfristrbar, 7);
 
     bar_chart(pfristrbar, PAGE_WIDTH, PAGE_HEIGHT, "Test Bar Drawing");
+    del_bar(pfristrbar);
+    pfristrbar = NULL;
+
+    pfristrbar = malloc(sizeof(bar));
+    pfristrbar->value = 220;
+    pfristrbar->pnextbar = NULL;
+    add_bar(pfristrbar, 210);
+    add_bar(pfristrbar, 230);
+    add_bar(pfristrbar, -230);
+    bar_chart(pfristrbar, PAGE_WIDTH, PAGE_HEIGHT, "Test Bar Drawing");
+    del_bar(pfristrbar);
 
     return 0;
 }
@@ -52,6 +64,20 @@ bar *add_bar(bar *const pfristbar, double value)
     plastbar->pnextbar = NULL;
 
     return plastbar;
+}
+
+void del_bar(bar *pfristbar)
+{
+    bar *pnextbar = pfristbar->pnextbar;
+
+    while (pnextbar)
+    {
+        free(pfristbar);
+        pfristbar = pnextbar;
+        pnextbar = pnextbar->pnextbar;
+    }
+
+    free(pfristbar);
 }
 
 int bar_chart(bar *const pfristbar, uint page_width, uint page_height, char const *title)
@@ -84,10 +110,10 @@ int bar_chart(bar *const pfristbar, uint page_width, uint page_height, char cons
         exit(1);
     }
 
-    for (i = 0; i < space; i++)
-        *(column + i) = ' ';
-    for (; i < space + barwidth; i++)
+    for (i = 0; i < barwidth; i++)
         *(column + i) = '#';
+    for (; i < space + barwidth; i++)
+        *(column + i) = ' ';
     *(column + i) = '\0';
 
     if (NULL == (blank = malloc(barwidth + space + 1)))
