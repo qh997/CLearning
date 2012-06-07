@@ -12,6 +12,9 @@
 void print_title(char *title);
 long htoi(char *string);
 char *squeeze(char *str_ori, char *str_del);
+unsigned int setbits(unsigned x, int p, int n, unsigned int y);
+unsigned int invert(unsigned int x, int p, int n);
+unsigned int rightrot(unsigned int x, int n);
 
 int main(void)
 {
@@ -27,6 +30,13 @@ int main(void)
     {
         char str[] = "acdbcdefcddcg";
         show_var("%s", squeeze(str, "cde"));
+    }
+
+    print_title("setbits invert");
+    {
+        show_var("%X", setbits(0x34A7, 5, 4, 0xB8));
+        show_var("%X", invert(0x34A76E, 9, 4));
+        show_var("%X", rightrot(0xFE, 77));
     }
 
     return 0;
@@ -117,4 +127,52 @@ char *squeeze(char *str_ori, char *str_del)
     *pstro = '\0';
 
     return str_ori;
+}
+
+unsigned int setbits(unsigned x, int p, int n, unsigned int y)
+{
+    unsigned int xmask = ~((~(~0 << n)) << (p - 1));
+    unsigned int ymask = (~(~0 << n) & y) << (p - 1);
+    show_var("%X", xmask);
+    show_var("%X", ymask);
+
+    return x & xmask | ymask;
+}
+
+unsigned int invert(unsigned int x, int p, int n)
+{
+    show_var("%X", x);
+    unsigned int x1 = ~(((x >> (p - 1)) | (~0 << n))) << (p - 1);
+    show_var("%X", x1);
+    x = x & ~(~(~0 << n) << (p - 1));
+    show_var("%X", x);
+
+    return x | x1;
+}
+
+unsigned int rightrot(unsigned int x, int n)
+{
+    show_var("%X", x);
+    unsigned int mask = 0x80000000;
+    unsigned int eax = x;
+    show_var("%X", mask);
+    for (int i = 0; i < n; i++)
+    {
+        show_var("%X", x & 1);
+        if (1 == (x & 1))
+        {
+            x = (x >> 1) | mask;
+        }
+        else
+        {
+            x = (x >> 1) & ~mask;
+        }
+        show_var("%X", x);
+    }
+
+    show_var("%X", ~0 << (8 * sizeof(int) - n));
+    eax = (eax >> n) + (eax << (8 * sizeof(eax) - n));
+    show_var("%X", eax);
+
+    return x;
 }
