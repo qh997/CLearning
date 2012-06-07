@@ -11,8 +11,10 @@
 
 #if DEBUG
 #define show_var(fmt, var) printf("%s = "fmt"\n", #var, var)
+#define show_log(var) printf("%s\n", var);
 #else
 #define show_var(fmt, var)
+#define show_log(var)
 #endif
 
 typedef struct SingleChar
@@ -62,15 +64,15 @@ int main(int argc, char *argv[])
             {
                 get_char_in_file(p_charlist, pfile);
                 filefind = true;
-            }
 
-            fclose(pfile);
+                fclose(pfile);
+            }
         }
     }
     else
     {
         p_charlist = creat_char(0);
-        char c = '\0', *filename = malloc(100), *pfn = filename;
+        char c = '\0', *filename = malloc(FILENAME_MAX + 1), *pfn = filename;
         fflush(stdout);
         while (EOF != (c = getchar()))
         {
@@ -85,6 +87,7 @@ int main(int argc, char *argv[])
                 show_var("%s", filename);
 
                 FILE *pfile = NULL;
+                fflush(stdout);
                 if (NULL == (pfile = fopen(filename, "r")))
                 {
                     printf("Can't open the file : %s\n", filename);
@@ -93,13 +96,15 @@ int main(int argc, char *argv[])
                 {
                     get_char_in_file(p_charlist, pfile);
                     filefind = true;
-                }
 
-                fclose(pfile);
+                    fclose(pfile);
+                }
                 pfn = filename;
                 *pfn = '\0';
             }
         }
+
+        free(filename);
     }
 
     if (filefind)
@@ -113,6 +118,7 @@ int main(int argc, char *argv[])
 
 void get_char_in_file(s_char *proot, FILE *pfile)
 {
+    show_log("=> get_char_in_file");
     char current_char = '\0';
     while (EOF != (current_char = fgetc(pfile)))
     {
@@ -123,6 +129,7 @@ void get_char_in_file(s_char *proot, FILE *pfile)
         }
     }
     show_var("%p", proot);
+    show_log("<= get_char_in_file");
 }
 
 s_char *add_char(s_char *proot, char value)
@@ -167,6 +174,8 @@ s_char *add_char(s_char *proot, char value)
 
 s_char *creat_char(char value)
 {
+    show_log("=> creat_char");
+    show_var("%c", value);
     s_char *pschar = (s_char *)malloc(sizeof(s_char));
 
     assert(NULL != pschar);
@@ -183,6 +192,7 @@ s_char *creat_char(char value)
     }
     pschar->p_left = NULL;
     pschar->p_right = NULL;
+    show_log("<= creat_char");
     return pschar;
 }
 
