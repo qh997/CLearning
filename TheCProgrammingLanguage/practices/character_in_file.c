@@ -36,7 +36,7 @@ void get_char_in_file(s_char *phead, FILE *pfile);
 s_char *add_char(s_char *phead, char value);
 s_char *creat_char(char value);
 void list_chars(s_char *proot);
-void bar_chart(int page_height, int width, s_char *proot);
+void bar_chart(int height, int width, s_char *proot);
 int get_chars_count(s_char *proot);
 int get_max(s_char *proot);
 int get_min(s_char *proot);
