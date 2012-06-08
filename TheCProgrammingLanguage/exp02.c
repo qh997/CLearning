@@ -36,7 +36,13 @@ int main(void)
     {
         show_var("%X", setbits(0x34A7, 5, 4, 0xB8));
         show_var("%X", invert(0x34A76E, 9, 4));
-        show_var("%X", rightrot(0xFE, 77));
+        show_var("%X", rightrot(0xFE, 99));
+    }
+
+    print_title("x &= (x - 1)");
+    {
+        unsigned x = 0x88;
+        show_var("%X", x &= (x - 1));
     }
 
     return 0;
@@ -158,7 +164,6 @@ unsigned int rightrot(unsigned int x, int n)
     show_var("%X", mask);
     for (int i = 0; i < n; i++)
     {
-        show_var("%X", x & 1);
         if (1 == (x & 1))
         {
             x = (x >> 1) | mask;
@@ -167,10 +172,9 @@ unsigned int rightrot(unsigned int x, int n)
         {
             x = (x >> 1) & ~mask;
         }
-        show_var("%X", x);
     }
 
-    show_var("%X", ~0 << (8 * sizeof(int) - n));
+    show_var("%X", eax);
     eax = (eax >> n) + (eax << (8 * sizeof(eax) - n));
     show_var("%X", eax);
 
