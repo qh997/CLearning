@@ -9,6 +9,7 @@
 
 void push(double f);
 double pop(void);
+double get(void);
 int getop(char s[]);
 int getch(void);
 void ungetch(int c);
@@ -43,7 +44,15 @@ int main(void)
                 else
                     printf("error: zero divisor\n");
                 break;
+            case '%':
+                op2 = pop();
+                if (op2 != 0.0)
+                    push((int)pop() % (int)op2);
+                else
+                    printf("error: zero divisor\n");
+                break;
             case '\n':
+                printf("\t%.8g\n", get());
                 printf("\t%.8g\n", pop());
                 break;
             default:
@@ -53,6 +62,28 @@ int main(void)
     }
 
     return 0;
+}
+
+int getop(char s[])
+{
+    int i, c;
+
+    while (' ' == (s[0] = c = getch()) || c == '\t')
+        ;
+    s[1] = '\0';
+    if (!isdigit(c) && c != '.')
+        return c;
+    i = 0;
+    if (isdigit(c))
+        while (isdigit(s[++i] = c = getch()))
+            ;
+    if ('.' == c)
+        while (isdigit(s[++i] = c = getch()))
+            ;
+    s[i] = '\0';
+    if (EOF != c)
+        ungetch(c);
+    return NUMBER;
 }
 
 #define MAXVAL (100)
@@ -79,26 +110,15 @@ double pop(void)
     }
 }
 
-int getop(char s[])
+double get(void)
 {
-    int i, c;
-
-    while (' ' == (s[0] = c = getch()) || c == '\t')
-        ;
-    s[1] = '\0';
-    if (!isdigit(c) && c != '.')
-        return c;
-    i = 0;
-    if (isdigit(c))
-        while (isdigit(s[++i] = c = getch()))
-            ;
-    if ('.' == c)
-        while (isdigit(s[++i] = c = getch()))
-            ;
-    s[i] = '\0';
-    if (EOF != c)
-        ungetch(c);
-    return NUMBER;
+    if (sp > 0)
+        return val[sp - 1];
+    else
+    {
+        printf("error: stack empty\n");
+        return 0;
+    }
 }
 
 #define BUFSIZE (100)
