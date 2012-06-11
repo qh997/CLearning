@@ -1,4 +1,5 @@
 #include "expxx.h"
+#include <float.h>
 
 int main(void)
 {
@@ -27,7 +28,7 @@ char *alloc(int n)
 
 void afree(char *p)
 {
-    if (p >= allocbuf && a < allocbuf + ALLOCSIZE)
+    if (p >= allocbuf && p < allocbuf + ALLOCSIZE)
     {
         allocp = p;
     }
