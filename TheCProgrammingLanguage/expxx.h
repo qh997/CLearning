@@ -7,6 +7,7 @@
 #include <assert.h>
 #include <ctype.h>
 #include <stdbool.h>
+#include <stdarg.h>
 
 #define TITLE_WIDTH (65)
 #define TITLE_LINE '-'
