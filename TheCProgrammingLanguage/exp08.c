@@ -14,5 +14,15 @@ int main(void)
     }
 #endif
 
+    print_title("*p++ *++p");
+    {
+        int number[10] = {0,1,2,3,4,5,6,7,8,9};
+        int *p = number, *q = number;
+        show_var("%d", *p++);
+        show_var("%d", *p);
+        show_var("%d", *++q);
+        show_var("%d", *q);
+    }
+
     return 0;
 }
