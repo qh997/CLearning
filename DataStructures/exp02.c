@@ -34,7 +34,6 @@ int main(void)
     print_title("Linked List");
     {
         LinkList l_list = NULL;
-        //CreatList_L(&l_list, 997);
         ListAdd_L(&l_list, 41);
         print_llist(l_list);
         show_var("%d", l_list->data);
@@ -42,6 +41,7 @@ int main(void)
         GetElem_L(l_list, 0, &get_e);
         show_var("%d", get_e);
         ListInsert_L(&l_list, 0, 223);
+        ListInsert_L(&l_list, 2, 999);
         ListAdd_L(&l_list, 41);
         ListAdd_L(&l_list, 23);
         ListAdd_L(&l_list, 1);
@@ -49,6 +49,8 @@ int main(void)
         ListInsert_L(&l_list, 4, 788);
         ListInsert_L(&l_list, 4, 255);
         print_llist(l_list);
+        DestroyList_L(&l_list);
+        show_var("%p", l_list);
     }
 
     return 0;

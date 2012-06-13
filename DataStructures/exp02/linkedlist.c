@@ -22,7 +22,7 @@ Status ListInsert_L(LinkList *L, int i, int e)
     while (--i > 0 && NULL != (*L)->next)
         L = &(*L)->next;
 
-    if (0 < i)
+    if (1 < i)
         return ERROR;
     else
     {
@@ -36,6 +36,11 @@ Status ListInsert_L(LinkList *L, int i, int e)
         {
             p_insert->next = *L;
             *L = p_insert;
+        }
+        else if (i == 1)
+        {
+            (*L)->next = p_insert;
+            p_insert->next = NULL;
         }
         else
         {
@@ -59,6 +64,20 @@ Status GetElem_L(LinkList L, int i, int *e)
         return ERROR;
     else
         *e = L->data;
+
+    return OK;
+}
+
+Status DestroyList_L(LinkList *L)
+{
+    if (NULL == *L)
+        return OK;
+    else
+    {
+        DestroyList_L(&(*L)->next);
+        free(*L);
+        *L = NULL;
+    }
 
     return OK;
 }

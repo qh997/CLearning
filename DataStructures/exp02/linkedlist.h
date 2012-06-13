@@ -13,5 +13,6 @@ typedef struct LNode
 extern Status ListAdd_L(LinkList *L, int e);
 extern Status ListInsert_L(LinkList *L, int i, int e);
 extern Status GetElem_L(LinkList L, int i, int *e);
+extern Status DestroyList_L(LinkList *L);
 
 #endif //LINKEDLIST_H
