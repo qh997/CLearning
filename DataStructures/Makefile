@@ -6,7 +6,7 @@ ifeq ($(TARGET), exp02)
 OBJECT += exp02/seqlist.o exp02/linkedlist.o
 endif
 ifeq ($(TARGET), exp03)
-OBJECT += exp03/seqstack.o
+OBJECT += exp03/seqstack.o exp03/linkedqueue.o exp03/seqqueue.o
 endif
 
 ifneq ($(CC), gcc)
