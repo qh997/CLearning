@@ -1,5 +1,4 @@
-
-TARGET := exp03
+TARGET := exp04
 OBJECT := expxx.o
 OBJECT += $(TARGET).o
 ifeq ($(TARGET), exp02)
@@ -7,6 +6,9 @@ OBJECT += exp02/seqlist.o exp02/linkedlist.o
 endif
 ifeq ($(TARGET), exp03)
 OBJECT += exp03/seqstack.o exp03/linkedqueue.o exp03/seqqueue.o
+endif
+ifeq ($(TARGET), exp04)
+OBJECT += exp04/heap_string.o exp04/KMP.o
 endif
 
 ifneq ($(CC), gcc)
@@ -41,7 +43,7 @@ $(warning : I am here!)
 
 .PHONY: all clean show
 
-all: show clean run
+all: clean run
 
 clean:
 	-rm $(OBJECT) run
