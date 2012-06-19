@@ -41,7 +41,7 @@ int main(void)
             printf("%d", next[i]);
         printf("\n");
 
-        m = kmp_matching("aaaaaaaaacaaaaaaaaaaaaab", "aaaaaaab");
+        m = kmp_matching("aaaaaacaaaaaaaaaaaaab", "aaaaaaab");
         show_var("%d", m);
 
         next = get_kmp_next1("abccabccabca");
@@ -59,7 +59,7 @@ int main(void)
             printf("%d", next[i]);
         printf("\n");
 
-        m = kmp_matching1("aaaaaaaaacaaaaaaaaaaaaab", "aaaaaaab");
+        m = kmp_matching1("aaaaaacaaaaaaaaaaaaab", "aaaaaaab");
         show_var("%d", m);
 
         free(next);
