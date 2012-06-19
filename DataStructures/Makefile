@@ -1,4 +1,4 @@
-TARGET := exp04
+TARGET := exp05
 OBJECT := expxx.o
 OBJECT += $(TARGET).o
 ifeq ($(TARGET), exp02)
@@ -9,6 +9,9 @@ OBJECT += exp03/seqstack.o exp03/linkedqueue.o exp03/seqqueue.o
 endif
 ifeq ($(TARGET), exp04)
 OBJECT += exp04/heap_string.o exp04/KMP.o
+endif
+ifeq ($(TARGET), exp05)
+OBJECT += exp05/array.o
 endif
 
 ifneq ($(CC), gcc)
