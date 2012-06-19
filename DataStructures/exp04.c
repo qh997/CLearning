@@ -27,40 +27,42 @@ int main(void)
     print_title("KMP");
     {
         int *next = get_kmp_next("abccabccabca");
-        printf("0123456789101112\n");
-        printf("abccabccabca\n");
+        printf(" abccabccabca\n");
         for (int i = 0; i < 12; i++)
             printf("%d", next[i]);
         printf("\n");
+
+        int m = kmp_matching("abccasabccabceabccabccabcaxe", "abccabccabca");
+        show_var("%d", m);
+
+        next = get_kmp_next("aaaaaaab");
+        printf(" aaaaaaab\n");
+        for (int i = 0; i < 8; i++)
+            printf("%d", next[i]);
+        printf("\n");
+
+        m = kmp_matching("aaaaaaaaacaaaaaaaaaaaaab", "aaaaaaab");
+        show_var("%d", m);
 
         next = get_kmp_next1("abccabccabca");
+        printf("\n abccabccabca\n");
         for (int i = 0; i < 12; i++)
             printf("%d", next[i]);
         printf("\n");
 
-        next = get_kmp_next("abaabcac");
+        m = kmp_matching1("abccasabccabceabccabccabcaxe", "abccabccabca");
+        show_var("%d", m);
+
+        next = get_kmp_next1("aaaaaaab");
+        printf(" aaaaaaab\n");
         for (int i = 0; i < 8; i++)
             printf("%d", next[i]);
         printf("\n");
 
-        next = get_kmp_next1("abaabcac");
-        for (int i = 0; i < 8; i++)
-            printf("%d", next[i]);
-        printf("\n");
+        m = kmp_matching1("aaaaaaaaacaaaaaaaaaaaaab", "aaaaaaab");
+        show_var("%d", m);
 
-        next = get_kmp_next("ababacb");
-        for (int i = 0; i < 8; i++)
-            printf("%d", next[i]);
-        printf("\n");
-
-        next = get_kmp_next1("ababacb");
-        for (int i = 0; i < 8; i++)
-            printf("%d", next[i]);
-        printf("\n");
-
-        //int m = kmp_matching("abccasabccabceabccabccabcase", "abccabccabca");
-        //show_var("%d", m);
-
+        free(next);
     }
 
     return 0;
