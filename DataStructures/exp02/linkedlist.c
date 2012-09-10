@@ -68,6 +68,21 @@ Status GetElem_L(LinkList L, int i, int *e)
     return OK;
 }
 
+LNode *Reverse_L(LNode *L)
+{
+    if (NULL == L)
+        return NULL;
+    else if (NULL == L->next)
+        return L;
+    else
+    {
+        LNode *head = Reverse_L(L->next);
+        L->next->next = L;
+        L->next = NULL;
+        return head;
+    }
+}
+
 Status DestroyList_L(LinkList *L)
 {
     if (NULL == *L)

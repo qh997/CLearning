@@ -49,6 +49,8 @@ int main(void)
         ListInsert_L(&l_list, 4, 788);
         ListInsert_L(&l_list, 4, 255);
         print_llist(l_list);
+        l_list = Reverse_L(l_list);
+        print_llist(l_list);
         DestroyList_L(&l_list);
         show_var("%p", l_list);
     }

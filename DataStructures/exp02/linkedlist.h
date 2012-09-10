@@ -13,6 +13,7 @@ typedef struct LNode
 Status ListAdd_L(LinkList *L, int e);
 Status ListInsert_L(LinkList *L, int i, int e);
 Status GetElem_L(LinkList L, int i, int *e);
+LinkList Reverse_L(LinkList L);
 Status DestroyList_L(LinkList *L);
 
 #endif //LINKEDLIST_H
